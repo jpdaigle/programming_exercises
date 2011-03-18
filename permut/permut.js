@@ -3,17 +3,13 @@ function permut(foo) {
 
     function each(arr, f) {
         for (var i = 0; i < arr.length; i++) {
-            // f invoked with (indexInArray, valueOfElement)
-            f(i, arr[i]);
+            f(i, arr[i]); // f invoked with (idx, elem)
         }
     }
 
-    function wrap(o) {
-        return {val: o, sortKey: Math.random()};
-    }
-
+    // wrap
     each(foo, function(i, o) {
-        foo[i] = wrap(o)
+        foo[i] = {val: o, sortKey: Math.random()};
     });
 
     // Actually you could probably do the entire permut operation
@@ -23,8 +19,10 @@ function permut(foo) {
                 ((a.sortKey === b.sortKey) ? 0 : 1);
     });
 
+    // restore
     each(foo, function(i, o) {
         foo[i] = o.val;
     });
+    
     return foo;
 }
